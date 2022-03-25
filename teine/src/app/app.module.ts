@@ -3,14 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AvalehtComponent } from './avaleht/avaleht.component';
-import { OstukorvComponent } from './ostukorv/ostukorv.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { NewsComponent } from './news/news.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AvalehtComponent,
-    OstukorvComponent
+    NavbarComponent,
+    HomeComponent,
+    NewsComponent,
+    ContactComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

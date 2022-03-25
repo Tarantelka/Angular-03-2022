@@ -1,0 +1,15 @@
+<div *ngIf="boolean" >{{ string }}</div>
+<div  *ngIf="number > 100">{{ number }}</div>
+<div *ngIf="string" >{{ boolean }}</div>
+
+<div>{{ string + string }}</div>
+<div>{{ number + number }}</div>
+<div>{{ boolean + string }}</div>
+
+<div *ngIf="string.length > 0"></div>
+
+<button (click)="korrutaKahega()">korrutaKahega</button>
+
+<button (click)="muudaBoolean()">Muuda boolean false-ks</button>
+
+<button (click)="tyhjendastring()">Muuda string  tühjaks</button>
