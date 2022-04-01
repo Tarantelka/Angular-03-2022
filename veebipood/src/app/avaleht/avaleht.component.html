@@ -1,1 +1,10 @@
-<p>avaleht works!</p>
+<!-- tooted = [.1.,.2.,.3.]
+t = .1. "Coca cola" --- {nimi: "Coca cola", hind: 3}
+t = .2.
+t = .3. -->
+<div *ngFor="let t of tooted">
+        <div>Nimi: {{t.nimi}}</div>
+        <div>Hind: {{t.hind}}</div>
+        <div>Kategooria: coca</div>
+<button (click)="lisaOstukorvi(t)">Lisa {{t.nimi}}ostukorvi</button>
+</div>
