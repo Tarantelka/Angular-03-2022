@@ -6,6 +6,7 @@ import { AdminKoduComponent } from './admin/admin-kodu/admin-kodu.component';
 import { VaataTooteidComponent } from './admin/vaata-tooteid/vaata-tooteid.component';
 import { MuudaToodeComponent } from './admin/muuda-toode/muuda-toode.component';
 import { LisaToodeComponent } from './admin/lisa-toode/lisa-toode.component';
+import { YksikToodeComponent } from './yksik-toode/yksik-toode.component';
 
 const routes: Routes = [
   // localhost:4200/   avaleht.component.html -> avaleht.css ja avaleht.ts
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: "admin", component: AdminKoduComponent },
   { path: "admin/lisa", component: LisaToodeComponent },
   { path: "admin/vaata", component: VaataTooteidComponent },
-  { path: "admin/muuda", component: MuudaToodeComponent },
+  { path: "admin/muuda/:tooteNimi", component: MuudaToodeComponent },
+  { path: "toode/:tooteNimi", component:YksikToodeComponent },
+  { path: "ostukorv", component: OstukorvComponent },
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,11 +14,8 @@ koguSumma = 0;
 // number =22;
 // boolean = true;
 
-
-constructor() {
-  console.log( "pannakse Ostukorv käima");
-  
-}
+// klasside(erinevate node_module võimaluste)  ühendamine selle componentide külge
+constructor(private http: HttpClient) {}
 
 // UUE MUUTUJA TEKITAMINE (uus väärtus ja sellele viitav sõna)
 // 1. sulgude sees --  toode -- ta saab väärtuse HTML-s (click)="kustutaToode('S')"
@@ -36,7 +34,8 @@ kustutaToode(toode:any) {
               //[ "C", "F", "S", "V", "VW"] .indexOf("S");
               //    2
  // const j2rjekorranNumber = 2
- // ostukorviTooted.splice(2,1)             
+ // ostukorviTooted.splice(2,1)
+              
  const j2rjekorraNumber = this.ostukorviTooted.indexOf(toode);
  this.ostukorviTooted.splice(j2rjekorraNumber,1);
  sessionStorage.setItem("ostukorviTooted", JSON.stringify(this.ostukorviTooted))
@@ -79,6 +78,29 @@ private arvutaKogusumma () {
       this.ostukorviTooted = JSON.parse(ostukorvSS);
     }
       this.arvutaKogusumma();
+  }
+
+  maksma () {
+    const makseAndmed = {
+      "api_username": "92ddcfab96e34a5f",
+      "account_name": "EUR3D1",
+      "amount": this.koguSumma,
+      "order_reference": Math.random() * 999999,
+      "nonce": "37847239" + new Date() + Math.random() * 999999 + this.koguSumma,
+      "timestamp": new Date(),
+      "customer_url": "https://shop.example.com/cart"
+      }
+      const headers = {
+        headers: new HttpHeaders(
+          {
+            "Authorization": 
+            "Basic OTJkZGNmYWI5NmUzNGE1Zjo4Y2QxOWU5OWU5YzJjMjA4ZWU1NjNhYmY3ZDBlNGRhZA=="
+          }
+        )
+      };
+      this.http.post<any>("https://igw-demo.every-pay.com/api/v4/payments/oneoff",
+       makseAndmed,
+        headers).subscribe(tagastus => location.href = tagastus.payment_link);
   }
   // korrutaKahega (){
   //   this.number =this.number * 2;

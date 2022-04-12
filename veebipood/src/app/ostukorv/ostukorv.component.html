@@ -12,6 +12,10 @@
 </div>
 
 <div *ngIf="ostukorviTooted.length > 0">Kokku: {{koguSumma}}</div>
+
+<button *ngIf="ostukorviTooted.length > 0"
+  (click)="maksma()">MAKSMA
+</button>
 <!-- <div *ngIf="boolean" >{{ string }}</div>
 <div  *ngIf="number > 100">{{ number }}</div>
 <div *ngIf="string" >{{ boolean }}</div>

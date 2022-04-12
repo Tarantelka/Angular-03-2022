@@ -18,12 +18,20 @@ export class VaataTooteidComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    const tootedLS =localStorage.getItem("tooted");
+  if (tootedLS) {
+    this.tooted = JSON.parse(tootedLS);
   }
+}
 
 kustutaToode(toode: any) {
-   const j2rjekorranumber =this.tooted.indexOf(toode);
-   this.tooted.splice(j2rjekorranumber, 1);
+  console.log(toode);
+  const j2rjekorranumber =this.tooted.indexOf(toode);
+  console.log(j2rjekorranumber);
+  this.tooted.splice(j2rjekorranumber, 1);
+  console.log(this.tooted);
+  localStorage.setItem("tooted", JSON.stringify(this.tooted));
 }
 
 }

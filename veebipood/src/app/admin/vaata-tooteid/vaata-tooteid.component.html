@@ -4,7 +4,10 @@
   <div>{{ toode.nimi }}</div>
   <div>{{ toode.hind }}</div>
   <div>{{ toode.aktiivne }}</div>
-  <button routerLink="/admin/muuda">Muuda</button>
+  <button routerLink="/admin/muuda/{{toode.nimi
+    .replaceAll(' ', '-')
+    .toLowerCase()
+    .replaceAll('õ','o')}}">Muuda</button>
   <button (click)="kustutaToode(kustutaToode)">Kustuta</button>
   <br> <br>
 </div>

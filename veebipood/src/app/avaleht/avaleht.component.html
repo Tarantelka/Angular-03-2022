@@ -4,9 +4,11 @@ t = .2.
 t = .3. -->
 <div *ngFor="let t of tooted">
     <div *ngIf="t.aktiivne">
-        <div>Nimi: {{t.nimi}}</div>
-        <div>Hind: {{t.hind}}</div>
-        <div>Kategooria: coca</div>
-<button (click)="lisaOstukorvi(t)">Lisa {{t.nimi}}ostukorvi</button>
-</div>
+        <div routerLink="/toode/{{t.nimi.replaceAll('', '-').toLowerCase()}}">
+          <div>Nimi: {{t.nimi}}</div>
+          <div>Hind: {{t.hind}}</div>
+          <div>Kategooria: coca</div>
+       </div>
+       <button (click)="lisaOstukorvi(t)">Lisa {{t.nimi}}ostukorvi</button>
+    </div>
 </div>

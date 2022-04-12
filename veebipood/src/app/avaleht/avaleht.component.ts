@@ -15,9 +15,14 @@ export class AvalehtComponent implements OnInit {
     {nimi: "Vitamin well", hind:6, aktiivne: true}
   ];
 
+
   constructor() { }
 
   ngOnInit(): void {
+    const tootedLS =localStorage.getItem("tooted");
+    if (tootedLS) {
+      this.tooted = JSON.parse(tootedLS);
+    }
   }
 
        // 1.{n: "C", h: 2}
