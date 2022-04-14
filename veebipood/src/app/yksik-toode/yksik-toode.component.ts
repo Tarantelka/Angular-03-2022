@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,24 +9,31 @@ import { Component, OnInit } from '@angular/core';
 export class YksikToodeComponent implements OnInit {
   toode: any;
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
     const toodeNimi = (location.href.split("toode/")[1]);
     console.log(toodeNimi);
 
-    const tootedLS =localStorage.getItem("tooted");
-    console.log(tootedLS);
-  if (tootedLS) {
-    const tooted: any[]  = JSON.parse(tootedLS);
-    console.log(tooted);
+  //   const tootedLS =localStorage.getItem("tooted");
+  //   console.log(tootedLS);
+  // if (tootedLS) {
+  //   const tooted: any[]  = JSON.parse(tootedLS);
+  //   console.log(tooted);
+  this.http.get<any>("https://timbulimbu-5-default-rtdb.europe-west1.firebasedatabase.app/tooted.json")
+  .subscribe(tootedFB => {
+const uusMassiiv = [];
+for (const key in tootedFB) {
+uusMassiiv.push(tootedFB[key]);        
+}
+const tooted =uusMassiiv; this.toode = tooted.find(element => 
+  element.nimi.replaceAll("", "-").toLowerCase() === toodeNimi);
+  console.log(this.toode);
+})
 
-    this.toode = tooted.find(element => 
-      element.nimi.replaceAll("", "-").toLowerCase() === toodeNimi);
-      console.log(this.toode);
 
     // hind / aktiivne
-  }
+  // }
 
 }
 

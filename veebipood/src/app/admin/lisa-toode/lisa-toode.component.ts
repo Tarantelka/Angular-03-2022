@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LisaToodeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -22,17 +23,18 @@ export class LisaToodeComponent implements OnInit {
     //  console.log(vorm.value.hind);
     //  console.log(vorm.value.aktiivne);
     //  console.log(vorm.value.suvaline);
-     let tooted = [];
+    //  let tooted = [];
 
-     let tootedLS =localStorage.getItem("tooted");
-     if (tootedLS !== null) {   // tootedLS !== null
-       tooted = JSON.parse(tootedLS);
-    }
+    this.http.post(
+      "https://timbulimbu-5-default-rtdb.europe-west1.firebasedatabase.app/tooted.json", vorm.value).subscribe();
 
-     tooted.push(vorm.value);
+    //  let tootedLS =localStorage.getItem("tooted");
+    //  if (tootedLS !== null) {   // tootedLS !== null
+    //    tooted = JSON.parse(tootedLS);
+    // }
 
-
-     localStorage.setItem("tooted",JSON.stringify(tooted));
+    //  tooted.push(vorm.value);
+    //  localStorage.setItem("tooted",JSON.stringify(tooted));
     } //if-i lõpp
   } // funktsiooni lõpp
 } //classi lõpp

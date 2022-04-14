@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,14 +17,23 @@ export class AvalehtComponent implements OnInit {
   ];
 
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
-    const tootedLS =localStorage.getItem("tooted");
-    if (tootedLS) {
-      this.tooted = JSON.parse(tootedLS);
+    // const tootedLS =localStorage.getItem("tooted");
+    // if (tootedLS) {
+    //   this.tooted = JSON.parse(tootedLS);
+    this.http.get<any>("https://timbulimbu-5-default-rtdb.europe-west1.firebasedatabase.app/tooted.json")
+    .subscribe(tootedFB => {
+      const uusMassiiv = [];
+      for (const key in tootedFB) {
+        uusMassiiv.push(tootedFB[key]);
+          
+        }
+        this.tooted =uusMassiiv;
+        })
     }
-  }
+  
 
        // 1.{n: "C", h: 2}
        // 2.{n: "F", h: 3}

@@ -1,9 +1,11 @@
-<button routerLink="/admin/tooted">Tagasi</button>
+<button routerLink="/admin/vaata">Tagasi</button>
 
-<form (ngSubmit)="muudaToode()" [formGroup]="muutmiseVorm">
+<div *ngIf="!toode">LOADING.....</div>
+
+<form *ngIf="toode" (ngSubmit)="muudaToode()" [formGroup]="muutmiseVorm">
     <label>Nimi</label> <br>
     <input formControlName="nimi" type="text"> <br>
-    <label>Hind</label> <br>
+    <label>Hind</label><button type="button">Lisainfo</button> <br> 
     <input formControlName="hind" type="number"> <br>
     <label>Aktiivne</label> <br>
     <input formControlName="aktiivne" type="checkbox"> <br>
@@ -12,5 +14,4 @@
     new FormGroup({
       võti: new FormControl(väärtus-mida-süstin)
     }) -->
-
 </form>
