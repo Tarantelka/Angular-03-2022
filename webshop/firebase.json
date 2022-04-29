@@ -3,7 +3,6 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "site":"https://webshop---04-22.web.app",
     "public": "dist/webshop",
     "ignore": [
       "firebase.json",

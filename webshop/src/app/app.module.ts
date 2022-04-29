@@ -14,6 +14,9 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ThousandSeperatorPipe } from './pipes/thousand-seperator.pipe';
+import { DescriptionSortenerPipe } from './pipes/description-sortener.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,14 +27,20 @@ import { NavbarComponent } from './navbar/navbar.component';
     EditProductComponent,
     ViewProductsComponent,
     AdminHomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    ThousandSeperatorPipe,
+    DescriptionSortenerPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    TranslateModule.forRoot({ loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] } })],
+    TranslateModule.forRoot({ loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] } }),
+    FormsModule
+  ],
+
+
   providers: [],
   bootstrap: [AppComponent]
 })

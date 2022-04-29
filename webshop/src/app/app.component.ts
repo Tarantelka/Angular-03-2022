@@ -9,6 +9,7 @@ import {TranslateService} from "@ngx-translate/core";
 export class AppComponent {
   title = 'webshop';
   constructor(private translate: TranslateService) {  
-      translate.setDefaultLang('en');  
+      translate.setDefaultLang('en');
+        
     }
 }

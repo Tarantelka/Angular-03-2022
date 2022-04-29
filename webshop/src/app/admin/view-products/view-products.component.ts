@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewProductsComponent implements OnInit {products: any[] = [];
   dbURL = "https://webshop---04-22-default-rtdb.europe-west1.firebasedatabase.app/products.json"
-
+  descriptionWordCount= 3;
+  
   constructor(private http: HttpClient) {
    }
 
