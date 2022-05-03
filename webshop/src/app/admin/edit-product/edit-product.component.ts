@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-product',
@@ -12,7 +12,9 @@ export class EditProductComponent implements OnInit {products: any[] = [];
   product: any;
 
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, 
+    private http: HttpClient,
+    private router: Router) { } // Router tuleb importida
 
   ngOnInit(): void {
     const productID = this.route.snapshot.paramMap.get("productID");
@@ -31,4 +33,7 @@ export class EditProductComponent implements OnInit {products: any[] = [];
    console.log(this.products);
   }
 
+  onSubmit() {
+    this.router.navigateByUrl("/admin/tooted");
+  }
 }

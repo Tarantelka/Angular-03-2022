@@ -6,6 +6,7 @@ import { EditProductComponent } from './admin/edit-product/edit-product.componen
 import { ViewProductsComponent } from './admin/view-products/view-products.component';
 import { CartComponent } from './cart/cart.component';
 import { HomeComponent } from './home/home.component';
+import { ShopsComponent } from './shops/shops.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: "admin/lisa", component: AddProductComponent},
   {path: "admin/muuda/:productID", component: EditProductComponent},
   {path: "admin/halda", component: ViewProductsComponent},
+  {path: "poed", component: ShopsComponent}
  ];
 
 @NgModule({

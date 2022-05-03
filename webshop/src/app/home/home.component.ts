@@ -8,7 +8,15 @@ import { Product } from '../models/product.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
+  // images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/300`);
+  images = [
+    "https://picsum.photos/id/944/900/300",
+    "https://picsum.photos/id/1011/900/300",
+    "https://picsum.photos/id/984/900/300",
+    "https://picsum.photos/id/931/900/300"
+  ];
   products: Product[] = [];
   dbURL = "https://webshop---04-22-default-rtdb.europe-west1.firebasedatabase.app/products.json"
 
