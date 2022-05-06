@@ -16,8 +16,9 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ThousandSeperatorPipe } from './pipes/thousand-seperator.pipe';
 import { DescriptionSortenerPipe } from './pipes/description-sortener.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopsComponent } from './shops/shops.component';
+import { CategoryComponent } from './admin/category/category.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ShopsComponent } from './shops/shops.component';
     NavbarComponent,
     ThousandSeperatorPipe,
     DescriptionSortenerPipe,
-    ShopsComponent
+    ShopsComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { ShopsComponent } from './shops/shops.component';
     NgbModule,
     HttpClientModule,
     TranslateModule.forRoot({ loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] } }),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
 
 

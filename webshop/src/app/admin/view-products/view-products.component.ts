@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-view-products',
@@ -10,19 +11,18 @@ export class ViewProductsComponent implements OnInit {products: any[] = [];
   dbURL = "https://webshop---04-22-default-rtdb.europe-west1.firebasedatabase.app/products.json"
   descriptionWordCount= 3;
   
-  constructor(private http: HttpClient) {
+  constructor(private productService: ProductService) {
    }
 
 
 
   ngOnInit(): void {
-   this.http.get<any>(this.dbURL).subscribe(response => {
+    this.productService.getProductsFromdb().subscribe(response => {
     const newArray = [];
     for (const key in response) {
       this.products.push(response[key]);
     }
-    // this.products = newArray;
-  });
+     });
   console.log()
 }
 onAddToCart(productClicked:any){

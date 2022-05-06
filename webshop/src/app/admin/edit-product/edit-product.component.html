@@ -7,9 +7,27 @@
     ! FormsModule peab olema ka imports=[] 
     
 <input formControlName="id" type="number">
-<input formControlName="id" type="number">
-<input formControlName="id" type="number">
-<input formControlName="id" type="number">
+<input formControlName="name" type="number">
+<input formControlName="price" type="number">
+<input formControlName="description" type="number">
 <input formControlName="id" type="number">
 <input formControlName="id" type="number">
 <input formControlName="id" type="number"> -->
+
+<form *ngIf="product" (ngSubmit)="onSubmit()" [formGroup] = "editProductForm">
+    <label> Nimi:  </label> <br>
+    <input formControlName="name" type="text"> <br>
+    <label> Kirjeldus:  </label> <br>
+    <input formControlName="description" type="text"> <br>
+    <label> Hind:  </label> <br>
+    <label>Kategooria</label> <br>
+    <select formControlName name="category">
+    <option *ngFor="let category of categories" value="{{category.categoryName}}">{{category.categoryName}}</option>
+    </select> <br>
+    <input formControlName="price" type="number">
+    <label>ImgSrc: </label>
+    <input formControlName="imgSrc" type="text">
+    <label> Aktiivne:  </label>
+    <input formControlName="isActive" type="checkbox">
+    <button>Muuda</button>
+   </form>
