@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CartProduct } from '../models/cart-product.model';
 
 @Component({
   selector: 'app-cart',
@@ -7,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cartProducts: any[] = [];
+  cartProducts: CartProduct[] = [];
   koguSumma = 0;
+  parcelMachines: any[] = [];
+  selectedParcelMachine: any;
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +21,14 @@ export class CartComponent implements OnInit {
       this.cartProducts = JSON.parse(cartItemsSS);
     }
     this.arvutaKogusumma();
+    this.http.get<any[]>("https://www.omniva.ee/locations.json").subscribe(res =>
+    this.parcelMachines = res);
+
+    this.selectedParcelMachine = sessionStorage.getItem("parcelMachine");
+
+
   }
+
 onDecreaseQuantity(cartProduct: any) {
   cartProduct.quantity--;
   sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
@@ -35,7 +45,7 @@ onRemoveProduct(cartProduct:any) {
   this.cartProducts.splice(index,1);
   sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
   this.arvutaKogusumma();
-      }
+  }
 
    }
 
@@ -69,6 +79,28 @@ maksma() {
   this.http.post<any>("https://igw-demo.every-pay.com/api/v4/payments/oneoff",
   makseAndmed,
    headers).subscribe(tagastus => location.href = tagastus.payment_link);
+
+}
+
+onParcelMachineSelected() {
+sessionStorage.setItem("parcelMachine",this.selectedParcelMachine);
+this.cartProducts.push({
+  product: {id:11110000, name:"Pakiautomaadi tasu",price:3.5, imgSrc: "assets/locker.png", category: "", description: "", isActive: true},
+  quantity: 1
+   });
+   sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
+   this.calculateSumOfCart();
+}
+
+onUnselectParcelMachine() {
+this.selectedParcelMachine = "";
+sessionStorage.removeItem("parcelMachine");
+this.onRemoveProduct({
+   product:{id:11110000, name:"Pakiautomaadi tasu",price:3.5, imgSrc: "assets/locker.png", category: "", description: "", isActive: true},
+quantity: 1})
+}
+
+calculateSumOfCart() {
 
 }
 

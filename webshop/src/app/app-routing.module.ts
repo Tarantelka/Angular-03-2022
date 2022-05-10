@@ -4,6 +4,7 @@ import { AddProductComponent } from './admin/add-product/add-product.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { EditProductComponent } from './admin/edit-product/edit-product.component';
+import { ShopsSettingsComponent } from './admin/shops-settings/shops-settings.component';
 import { ViewProductsComponent } from './admin/view-products/view-products.component';
 import { CartComponent } from './cart/cart.component';
 import { HomeComponent } from './home/home.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: "admin/halda", component: ViewProductsComponent},
   {path: "poed", component: ShopsComponent},
   {path: "admin/kategooriad", component: CategoryComponent},
+  {path: "admin/poodide-seaded", component: ShopsSettingsComponent}
  ];
 
 @NgModule({

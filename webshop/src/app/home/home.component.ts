@@ -48,7 +48,13 @@ export class HomeComponent implements OnInit {
   if (index >= 0) {
     cartItems[index].quantity++;
   } else {
-    cartItems.push({product:productClicked, quantity: 1 });
+    const parcelMachineIndex = cartItems.findIndex(element => element.product.id === 11110000)
+    if (parcelMachineIndex >= 0) {
+      cartItems.splice(parcelMachineIndex,0,{product:productClicked, quantity: 1 });
+    } else {
+      cartItems.push({product:productClicked, quantity: 1 });
+    }
+    
   }
 
     

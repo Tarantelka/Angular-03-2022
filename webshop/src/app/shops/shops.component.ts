@@ -1,4 +1,9 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+
+declare let Email: any;
+import 'src/assets/smtp.js';
+
+import { EmailValidator } from '@angular/forms';
 import * as L from "leaflet";
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -79,6 +84,23 @@ private initMap(): void {
       this.marker2.closePopup();
     }
   }
+
+  muutuja: any;
+  pealkiri: any;
+
+onSendEmail() {
+  Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "kaarelkuimet@gmail.com",
+    Password : "2B44EF5612A7E064B5BC3DA71F4C2D0D544D",
+    To : 'kaarelkuimet@gmail.com',
+    From : "kaarelkuimet@gmail.com",
+    Subject : this.pealkiri,
+    Body : "Klient kirjutas: " + this.muutuja +  " .Saadetud: " + new Date()
+  }).then(
+  (message:any) => alert(message)
+  );
+}
 
 
   ngOnDestroy(): void { }
