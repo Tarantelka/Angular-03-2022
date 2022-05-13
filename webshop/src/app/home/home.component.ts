@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CartProduct } from '../models/cart-product.model';
 import { Product } from '../models/product.model';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -19,25 +20,42 @@ export class HomeComponent implements OnInit {
   ];
   products: Product[] = [];
   dbURL = "https://webshop---04-22-default-rtdb.europe-west1.firebasedatabase.app/products.json"
+  categories: string[] = [];
+  selectedCategory = "";
+  originalProducts:Product[]=[];
 
-  kuup2ev = new Date();
-  protsent = 0.5;
-  rahayhik = 1000000;
-  lause = "vitamin well without sugar";
+  // kuup2ev = new Date();
+  // protsent = 0.5;
+  // rahayhik = 1000000;
+  // lause = "vitamin well without sugar";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private productService: ProductService) {
    }
 
   ngOnInit(): void {
-    this.http.get<Product[]>(this.dbURL).subscribe(response => {
+    this.productService.getProductsFromdb().subscribe(response => {
       const newArray = [];
       for (const key in response) {
         this.products.push(response[key]);
+        this.originalProducts.push(response[key]);
       }
       // this.products = newArray;
+      this.categories = this.products.map(element => element.category);
+      this.categories = [...new Set(this.categories)];
     });
     console.log()
   }
+
+  onFilterByCategory(category: string) {
+    this.selectedCategory = category;
+    if (category === '') {
+      this.products = this.originalProducts;
+    } else {
+      this.products = this.originalProducts.filter(element => element.category === category);
+    }
+  }
+
   onAddToCart(productClicked:Product){
     const cartItemsSS = sessionStorage.getItem("cartItems");
     let cartItems: CartProduct[] = [];
@@ -59,6 +77,7 @@ export class HomeComponent implements OnInit {
 
     
     sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
+    this.productService.cartChanged.next(true);
   }
 
   onSortAZ() {

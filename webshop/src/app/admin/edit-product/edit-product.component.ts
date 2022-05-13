@@ -70,6 +70,6 @@ getProductsFromdb(productID: any) {
   onSubmit() {
     const queueNumber = this.products.indexOf(this.product);
     this.products[queueNumber] = this.editProductForm.value;
-    this.http.put(this.dbURL, this.products).subscribe(()=>this.router.navigateByUrl("/admin/halda") );
+    this.productService.updateProductsInDb(this.products).subscribe(()=>this.router.navigateByUrl("/admin/halda") );
   }
 }

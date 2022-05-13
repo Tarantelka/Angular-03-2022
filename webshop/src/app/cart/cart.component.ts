@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CartProduct } from '../models/cart-product.model';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,8 @@ export class CartComponent implements OnInit {
   parcelMachines: any[] = [];
   selectedParcelMachine: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private productService: ProductService) { }
 
   ngOnInit(): void {
     const cartItemsSS = sessionStorage.getItem("cartItems");
@@ -31,19 +33,28 @@ export class CartComponent implements OnInit {
 
 onDecreaseQuantity(cartProduct: any) {
   cartProduct.quantity--;
+  if (cartProduct.quantity <= 0) {
+    this.onRemoveProduct(cartProduct);
+  }
   sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
+  this.productService.cartChanged.next(true);
   this.arvutaKogusumma();
 }
 onIncreaseQuantity(cartProduct: any) {
   cartProduct.quantity++;
   sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
+  this.productService.cartChanged.next(true);
   this.arvutaKogusumma();
 }
 onRemoveProduct(cartProduct:any) {
   const index = this.cartProducts.findIndex(element => element.product.id === cartProduct.product.id);
   if (index >= 0) {
   this.cartProducts.splice(index,1);
+  if (this.cartProducts.length === 1 && this.cartProducts[0].product.id === 11110000) {
+    this.onUnselectParcelMachine();
+  }
   sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
+  this.productService.cartChanged.next(true);
   this.arvutaKogusumma();
   }
 
@@ -55,7 +66,8 @@ private arvutaKogusumma() {
 }
 removeProducts() {
   this.cartProducts = [];
-  sessionStorage.setItem("cartProducts", JSON.stringify(this.cartProducts))
+  sessionStorage.setItem("cartProducts", JSON.stringify(this.cartProducts));
+  this.productService.cartChanged.next(true);
 }   
 
 maksma() {
@@ -89,12 +101,14 @@ this.cartProducts.push({
   quantity: 1
    });
    sessionStorage.setItem("cartItems", JSON.stringify(this.cartProducts));
+   this.productService.cartChanged.next(true);
    this.calculateSumOfCart();
 }
 
 onUnselectParcelMachine() {
 this.selectedParcelMachine = "";
 sessionStorage.removeItem("parcelMachine");
+this.productService.cartChanged.next(true);
 this.onRemoveProduct({
    product:{id:11110000, name:"Pakiautomaadi tasu",price:3.5, imgSrc: "assets/locker.png", category: "", description: "", isActive: true},
 quantity: 1})
