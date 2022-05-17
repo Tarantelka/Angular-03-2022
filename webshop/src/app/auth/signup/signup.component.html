@@ -1,0 +1,9 @@
+<ngb-alert type="danger" *ngIf="error">{{ error }}</ngb-alert>
+
+<form (ngSubmit)="onSignUp(form)" #form="ngForm">
+    <label>Email</label> <br>
+    <input ngModel name="email" type="text"> <br>
+    <label>Password</label> <br>
+    <input ngModel name="password" type="password"> <br>
+    <button>Registreeru</button>
+  </form>

@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+
+form {
+    text-align: center;
+    margin-top: 100px;
+}
+
+form input {
+    border-radius: 10px;
+    outline: none;
+    text-align: center;
+}
+
+form button {
+    margin-top: 10px;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
