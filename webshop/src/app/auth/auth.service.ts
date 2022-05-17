@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { tap } from 'rxjs/internal/operators/tap';
 import { User } from './user.model';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface AuthResponseData {
   kind: string;
@@ -24,9 +24,17 @@ export class AuthService {
   private tokenExpirationTimer: any;
   private route = 'https://identitytoolkit.googleapis.com/v1/accounts:';
   private key = 'AIzaSyDQOdr4KwsMdc1eGyMyIcgpXcavsw19Kgw';
-  loggedInChanged = new Subject<boolean>();
+  loggedInChanged = new BehaviorSubject<boolean>(this.checkIfSignedIn());
 
   constructor(private http: HttpClient, private router: Router) { }
+
+  private checkIfSignedIn() {
+    if (sessionStorage.getItem("userData")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>(this.route + 'signUp?key=' + this.key,

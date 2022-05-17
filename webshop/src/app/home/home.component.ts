@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 import { CartProduct } from '../models/cart-product.model';
 import { Product } from '../models/product.model';
 import { ProductService } from '../services/product.service';
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   categories: string[] = [];
   selectedCategory = "";
   originalProducts:Product[]=[];
+  loggedIn = false;
 
   // kuup2ev = new Date();
   // protsent = 0.5;
@@ -30,7 +32,8 @@ export class HomeComponent implements OnInit {
   // lause = "vitamin well without sugar";
 
   constructor(private http: HttpClient,
-    private productService: ProductService) {
+    private productService: ProductService,
+    private authService: AuthService) {
    }
 
   ngOnInit(): void {
@@ -44,7 +47,12 @@ export class HomeComponent implements OnInit {
       this.categories = this.products.map(element => element.category);
       this.categories = [...new Set(this.categories)];
     });
-    console.log()
+    
+    this.authService.loggedInChanged.subscribe(loggedInFromSubject => {
+      this.loggedIn = loggedInFromSubject;
+    })
+
+
   }
 
   onFilterByCategory(category: string) {
